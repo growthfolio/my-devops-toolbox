@@ -1,0 +1,47 @@
+# docker-compose.override.yml (desenvolvimento)
+version: '3.8'
+
+# Override para ambiente de desenvolvimento
+# Este arquivo é carregado automaticamente pelo Docker Compose
+
+services:
+  gitlab:
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost:8080'
+        
+        # Configurações de desenvolvimento
+        gitlab_rails['time_zone'] = 'America/Sao_Paulo'
+        
+        # Desabilitar recursos desnecessários em dev
+        gitlab_rails['usage_ping_enabled'] = false
+        gitlab_rails['sentry_enabled'] = false
+        gitlab_workhorse['prometheus_listen_addr'] = "0.0.0.0:9229"
+        
+        # Performance reduzida para desenvolvimento
+        puma['worker_processes'] = 1
+        sidekiq['max_concurrency'] = 5
+        
+        # Configurações de email para desenvolvimento
+        gitlab_rails['gitlab_email_enabled'] = false
+        gitlab_rails['incoming_email_enabled'] = false
+        
+        # SSL desabilitado
+        nginx['listen_https'] = false
+        nginx['redirect_http_to_https'] = false
+        
+        # Registro automático desabilitado
+        gitlab_rails['gitlab_signup_enabled'] = true
+        
+        # Configurações de backup para desenvolvimento
+        gitlab_rails['backup_keep_time'] = 86400
+        
+    volumes:
+      # Mapear timezone
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      
+    # Portas adicionais para desenvolvimento
+    ports:
+      - "9229:9229"  # Workhorse metrics
+
