@@ -193,3 +193,35 @@ jobs:
 **LinkedIn:** [felipemacedo1](https://linkedin.com/in/felipemacedo1)
 
 > 💡 **Reflexão:** Esta toolbox representa a evolução do conhecimento em DevOps e automação. A criação de ferramentas reutilizáveis demonstrou como a padronização e automação impactam positivamente a produtividade e confiabilidade dos sistemas.
+## 🛠 GitLab CE Installer
+
+Script `gitlab-installer.sh` automatiza a instalação e configuração do **GitLab Community Edition** em servidores Ubuntu LTS suportados.
+
+### ✅ Pré-requisitos
+- Ubuntu Server 20.04, 22.04 ou 24.04
+- Execução como `root`
+- Acesso à Internet
+
+### 🚀 Modos de Uso
+- **Interativo:** execute o script sem parâmetros e responda às perguntas do menu.
+- **Automático:** use `--auto` para executar com valores padrão ou passe parâmetros via CLI.
+
+### ⚙️ Opções CLI
+| Parâmetro        | Descrição                             |
+|------------------|---------------------------------------|
+| `--auto`         | Executa instalação automática         |
+| `--domain`       | Define domínio/host de acesso         |
+| `--email`        | E-mail do administrador inicial       |
+| `--http-port`    | Porta HTTP                            |
+| `--https-port`   | Porta HTTPS                           |
+| `--storage`      | Diretório de armazenamento            |
+
+### 📌 Exemplos
+```bash
+sudo bash gitlab-installer.sh                # modo interativo
+sudo bash gitlab-installer.sh --auto         # instalação automática
+sudo bash gitlab-installer.sh --auto --domain gitlab.exemplo.com --email admin@exemplo.com
+```
+
+### 📄 Relatórios
+Após a instalação os arquivos `gitlab-install-report.txt` e `report.html` são gerados com versão, URL, tempo de instalação e uso de recursos (disco, memória e CPU).
